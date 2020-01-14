@@ -1,0 +1,39 @@
+# 服务端口
+server:
+  port: 8090
+
+
+spring:
+  #  数据库的配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Zdhc@2019_
+    url: jdbc:mysql://172.16.3.81:3306/platform?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+#    username: root
+#    password: 123456
+#    url: jdbc:mysql://localhost:3306/eyebox?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  jpa:
+    database: mysql
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  devtools:
+    restart:
+#      为 true 开启热加载
+      enabled: false
+      additional-paths: src/main/java
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+# 配置文件储存位置
+filePath: E:\\testimg\\
+name: ShaoJie
