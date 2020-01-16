@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
@@ -21,6 +22,7 @@ import java.util.Date;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Accessors(chain = true)
 @Table(name = "event")
@@ -68,8 +70,5 @@ public class Event {
     @Column(name = "status")
     @ApiModelProperty(name = "status", value = "状态", dataType = "Integer")
     private Integer status;
-
-    public Event() {
-    }
 
 }

@@ -14,7 +14,10 @@ public enum ProcessEnum {
 
     NORMAL(1,"normal"),
 
-    PROCESSED(2,"processed");
+    REVIEW(2,"review"),
+
+    PROCESSED(3,"processed");
+
 
     /**
      * 存入数据库的状态

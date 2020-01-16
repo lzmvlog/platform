@@ -5,13 +5,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -22,6 +22,7 @@ import java.util.Date;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Accessors(chain = true)
 @Table(name = "emp")
@@ -134,8 +135,5 @@ public class Emp {
     @Column(name = "status")
     @ApiModelProperty(name = "status", value = "状态", dataType = "Integer")
     private Integer status;
-
-    public Emp() {
-    }
 
 }

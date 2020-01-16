@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Accessors(chain = true)
 @Table(name = "camera")
@@ -55,7 +57,4 @@ public class Camera {
     @ApiModelProperty(name = "status", value = "状态", dataType = "Integer")
     private Integer status;
 
-    public Camera() {
-
-    }
 }

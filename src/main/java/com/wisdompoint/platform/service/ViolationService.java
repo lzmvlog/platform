@@ -1,6 +1,8 @@
 package com.wisdompoint.platform.service;
 
+import com.wisdompoint.platform.model.Violation;
 import com.wisdompoint.platform.model.dto.ViolationDto;
+import com.wisdompoint.platform.util.em.ProcessEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,11 +14,13 @@ import org.springframework.data.domain.Pageable;
 public interface ViolationService {
 
     /**
-     * 处理违规记录
+     * 审核违规记录
      *
      * @param id      违规的 ID 编号
+     * @param process 处理的步骤
+     * @see ProcessEnum
      */
-    void processViolationsInfo(String id);
+    void processViolationsInfo(Integer process, String id);
 
     /**
      * 查询指定的字段
@@ -25,4 +29,18 @@ public interface ViolationService {
      * @return
      */
     Page<ViolationDto> findAllByStatus(Pageable pageable);
+
+    /**
+     * 删除违规记录
+     *
+     * @param id 违规id
+     */
+    void deleteViolationLog(String id);
+
+    /**
+     * 处理违规记录
+     *
+     * @param id 违规的 ID 编号
+     */
+    Violation findViolationProcessStatus(String id);
 }

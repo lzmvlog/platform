@@ -5,9 +5,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author： ShaoJie
@@ -17,6 +21,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "menu")
 @ApiModel(value = "menu", description = "菜单")
@@ -80,9 +85,5 @@ public class Menu {
     @Column(name = "status")
     @ApiModelProperty(name = "status", dataType = "Integer", value = "菜单的状态")
     private Integer status;
-
-    public Menu() {
-
-    }
 
 }

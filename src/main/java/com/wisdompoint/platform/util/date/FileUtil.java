@@ -6,9 +6,9 @@ import java.time.format.DateTimeFormatter;
 /**
  * @author： ShaoJie
  * @data： 2020年01月14日 11:56
- * @Description： 时间工具类
+ * @Description： 时间工具类 将各种时间转换成 String 可做文件名称 等等 保存不可重复的几率
  */
-public class DateUtil {
+public class FileUtil {
 
     /**
      * 获取年月日  yyyyMMdd
@@ -25,7 +25,9 @@ public class DateUtil {
      */
     public static String getJpgDate(){
         LocalDateTime localDateTime = LocalDateTime.now();
-        return localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        // 获取时间到 秒 yyyyMMddHHmmss
+        //          毫秒 yyyyMMddHHmmssSSS
+        return localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
     }
 
 }

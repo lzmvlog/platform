@@ -43,11 +43,14 @@ public class ViolationServiceImpl implements ViolationService {
     /**
      * 处理违规记录
      *
-     * @param id 违规的 ID 编号
+     * @param id      违规的 ID 编号
+     * @param process 处理的步骤
+     * @see ProcessEnum
      */
-    public void processViolationsInfo(String id) {
+    @Override
+    public void processViolationsInfo(Integer process, String id) {
         // 执行处理违规记录
-        violationRepository.processViolationsInfo(ProcessEnum.PROCESSED.getId(), id);
+        violationRepository.processViolationsInfo(process, id);
     }
 
     /**
@@ -59,6 +62,30 @@ public class ViolationServiceImpl implements ViolationService {
     @Override
     public Page<ViolationDto> findAllByStatus(Pageable pageable) {
         return violationRepository.findAllByStatus(StatusEnum.NORMAL.getId(), pageable);
+    }
+
+    /**
+     * 删除违规记录
+     *
+     * @param id 违规id
+     */
+    @Override
+    public void deleteViolationLog(String id) {
+        violationRepository.deleteViolation(StatusEnum.DELETE.getId(), id);
+    }
+
+    /**
+     * 根据 违规编号 查询审核的状态
+     *
+     * @param id 违规的 ID 编号
+     * @return
+     */
+    @Override
+    public Violation findViolationProcessStatus(String id) {
+        Example<Violation> example = Example.of(new Violation()
+                .setStatus(StatusEnum.NORMAL.getId())
+                .setId(id));
+        return violationRepository.findOne(example).get();
     }
 
     /**

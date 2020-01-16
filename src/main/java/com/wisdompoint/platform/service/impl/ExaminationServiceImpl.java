@@ -33,8 +33,8 @@ public class ExaminationServiceImpl implements ExaminationService {
      * @return
      */
     public Examination insertExamination(Examination examination) {
-        examination.setEligibility(false);
-        examination.setStatus(StatusEnum.NORMAL.getId());
+        examination.setEligibility(false)
+                .setStatus(StatusEnum.NORMAL.getId());
         return examinationRepository.save(examination);
     }
 
@@ -44,7 +44,8 @@ public class ExaminationServiceImpl implements ExaminationService {
      * @return
      */
     public Page<Examination> listExaminations(Pageable pageable) {
-        Example<Examination> examinationExample = Example.of(new Examination().setStatus(StatusEnum.NORMAL.getId()));
+        Example<Examination> examinationExample = Example.of(new Examination()
+                .setStatus(StatusEnum.NORMAL.getId()));
         return examinationRepository.findAll(examinationExample, pageable);
     }
 

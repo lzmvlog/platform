@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
@@ -22,6 +23,7 @@ import java.util.Date;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "violation")
 @Builder(toBuilder = true)
@@ -31,6 +33,7 @@ public class Violation {
 
     /**
      * 违规的 id 编号
+     *
      */
     @Id
     @Column(name = "id")
@@ -81,6 +84,13 @@ public class Violation {
     private String workTicketId;
 
     /**
+     * 摄像头的 ip
+     */
+    @Column(name = "camera_id")
+    @ApiModelProperty(name = "cameraId", value = "摄像头的 ip", dataType = "String")
+    private String cameraId;
+
+    /**
      * 状态
      *
      * @see StatusEnum
@@ -89,7 +99,4 @@ public class Violation {
     @ApiModelProperty(name = "status", value = "status", dataType = "Integer")
     private Integer status;
 
-    public Violation() {
-
-    }
 }

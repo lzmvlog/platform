@@ -1,14 +1,9 @@
 package com.wisdompoint.platform;
 
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Console;
+import com.wisdompoint.platform.util.em.StatusEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * @author： ShaoJie
@@ -24,7 +19,7 @@ public class PlatFormTest {
 //    private FileUtil fileUtil;
 
     @Test
-    void test() {
+    void test() {/*
         DateTime time = new DateTime(new Date());
         Console.log(time);
         Console.log(DateUtil.date());
@@ -35,8 +30,9 @@ public class PlatFormTest {
 
         String result = localDateTime.format(DateTimeFormatter.BASIC_ISO_DATE);
         String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-        Console.log(result);
-        Console.log(format);
+        Console.log(result);*/
+//        Console.log(FileUtil.getJpgDate());
+        Console.log(StatusEnum.NORMAL);
 
 //        System.out.println(fileUtil.lodeFile());
 

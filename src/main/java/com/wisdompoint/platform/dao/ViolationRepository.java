@@ -36,7 +36,7 @@ public interface ViolationRepository extends JpaRepository<Violation, String> {
     void deleteViolation(Integer status, String id);
 
     /**
-     * 查询指定的字段
+     * 查询指定的字段 排除除了图片以外的所有字段
      *
      * @param pageable 分页信息
      * @return
