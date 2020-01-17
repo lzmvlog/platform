@@ -42,9 +42,7 @@ public class EmpController {
     @PutMapping("saveEmpInfo")
     public String saveEmpInfo(@RequestBody Emp emp) {
         if (emp.getName() == "") return "请填写必要参数";
-        else {
-            empService.saveEmpInfo(emp);
-        }
+        else empService.saveEmpInfo(emp);
         log.info("{ 新增员工信息 }");
         return "success";
     }

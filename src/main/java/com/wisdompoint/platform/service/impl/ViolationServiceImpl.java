@@ -1,5 +1,6 @@
 package com.wisdompoint.platform.service.impl;
 
+import com.github.wenhao.jpa.Specifications;
 import com.wisdompoint.platform.dao.ViolationRepository;
 import com.wisdompoint.platform.model.Violation;
 import com.wisdompoint.platform.model.dto.ViolationDto;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -86,6 +88,25 @@ public class ViolationServiceImpl implements ViolationService {
                 .setStatus(StatusEnum.NORMAL.getId())
                 .setId(id));
         return violationRepository.findOne(example).get();
+    }
+
+    /**
+     * 查询用户的违规信息
+     * 只有当处理过后 才能算是这次违规 审核和处理 应该都算是这个人的违规
+     *
+     * @param memberId 用户的id
+     * @param pageable 分页
+     * @return
+     */
+    @Override
+    public Page<ViolationDto> findAllByMemberId(String memberId, Pageable pageable) {
+        Specification<ViolationDto> specification = Specifications.<ViolationDto>and()
+                .eq("memberId",memberId)
+                .eq("status", StatusEnum.NORMAL.getId())
+                .eq("process", ProcessEnum.PROCESSED.getId(),ProcessEnum.REVIEW.getId())
+                .build();
+        return violationRepository.findAll(specification, pageable);
+
     }
 
     /**

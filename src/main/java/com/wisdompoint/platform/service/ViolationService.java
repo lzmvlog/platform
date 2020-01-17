@@ -43,4 +43,13 @@ public interface ViolationService {
      * @param id 违规的 ID 编号
      */
     Violation findViolationProcessStatus(String id);
+
+    /**
+     * 查询用户的违规信息
+     *
+     * @param memberId 用户的id
+     * @param pageable 分页
+     * @return
+     */
+    Page<ViolationDto> findAllByMemberId(String memberId, Pageable pageable);
 }

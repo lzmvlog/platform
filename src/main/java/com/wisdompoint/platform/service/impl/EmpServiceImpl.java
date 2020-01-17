@@ -37,7 +37,7 @@ public class EmpServiceImpl implements EmpService {
      * @return Emp
      */
     public Emp saveEmpInfo(Emp emp) {
-        emp.setId(IdUtil.simpleUUID());
+        emp.setId(IdUtil.fastSimpleUUID());
         emp.setStatus(StatusEnum.NORMAL.getId());
         emp.setCreateTime(DateUtil.date());
         // 执行新增操作

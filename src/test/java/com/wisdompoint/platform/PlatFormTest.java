@@ -1,9 +1,10 @@
 package com.wisdompoint.platform;
 
 import cn.hutool.core.lang.Console;
-import com.wisdompoint.platform.util.em.StatusEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.UUID;
 
 /**
  * @author： ShaoJie
@@ -32,7 +33,7 @@ public class PlatFormTest {
         String format = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
         Console.log(result);*/
 //        Console.log(FileUtil.getJpgDate());
-        Console.log(StatusEnum.NORMAL);
+        Console.log(UUID.randomUUID().toString());
 
 //        System.out.println(fileUtil.lodeFile());
 

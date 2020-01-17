@@ -12,12 +12,17 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ProcessEnum {
 
-    NORMAL(1,"normal"),
+    NORMAL(1, "normal"),
 
-    REVIEW(2,"review"),
+    /**
+     * 审核
+     */
+    REVIEW(2, "review"),
 
-    PROCESSED(3,"processed");
-
+    /**
+     * 处理
+     */
+    PROCESSED(3, "processed");
 
     /**
      * 存入数据库的状态

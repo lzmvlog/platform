@@ -33,7 +33,6 @@ public class Violation {
 
     /**
      * 违规的 id 编号
-     *
      */
     @Id
     @Column(name = "id")
@@ -52,7 +51,7 @@ public class Violation {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "create_time")
-    @ApiModelProperty(name = "id", value = "createTime", dataType = "date")
+    @ApiModelProperty(name = "createTime", value = "createTime", dataType = "date")
     private Date createTime;
 
     /**

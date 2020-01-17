@@ -3,7 +3,6 @@ package com.wisdompoint.platform.model.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
@@ -12,11 +11,10 @@ import java.util.Date;
  * @author： ShaoJie
  * @data： 2019年12月11日 16:31
  * @Description： 违规实体 dto 对象 这里是为了避免关于 jpa 读取数据时 读取全部的实体
- *              这里缺少了实体的图片 现在数据库里存的是图片的 base64 码 后面需要将图片存到本地
+ * 这里缺少了实体的图片 现在数据库里存的是图片的 base64 码 后面需要将图片存到本地
  */
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Accessors(chain = true)
 public class ViolationDto {
 
