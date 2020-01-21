@@ -33,7 +33,7 @@ public class Camera {
     @Id
     @NotNull
     @Column(name = "id")
-    @ApiModelProperty(name = "id", value = "员工的编号", dataType = "String")
+    @ApiModelProperty(name = "id", value = "摄像头的编号", dataType = "String")
     private String id;
 
     @Column(name = "address")

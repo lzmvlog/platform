@@ -85,17 +85,17 @@ public class ViolationController {
         // 解析 JSON 对象  alarmContext
         JSONObject jsonObject = JSONObject.parseObject(data);
         String image = jsonObject.get("remark").toString();
-        // 处理图片保存
+        // 处理图片保存 接受保存图片的地址
         String imgFilePath = baseImg(image);
         // 设置违规记录参数
         Violation violation = new Violation()
                 .setId(IdUtil.fastSimpleUUID())
                 .setCode(jsonObject.get("alarmContent").toString())
-                // ai 推送的时间 提取的事摄像头的时间 不是很准确
+                // ai 推送的时间 提取的事摄像头的时间 不是很准确 主要是取决于 摄像头上的时间
 //                .setCreateTime(Timestamp.valueOf(jsonObject.get("alarmTime").toString()))
 //                 暂时先用自定义的时间 TODO：后面需要改成 ai 推送的时间
                 .setCreateTime(DateUtil.date())
-//                这里
+                // 这里 是保存图片的地址
                 .setImage(imgFilePath)
                 .setMemberId(jsonObject.get("memberId").toString())
                 .setStatus(StatusEnum.NORMAL.getId())
@@ -142,18 +142,23 @@ public class ViolationController {
             return new DataResult(CodeEnum.REQUEST_REFUSE, "请输入全必填参数~");
         }
         log.info("{ 审核违规信息 }");
-        // 这里删除当前这条信息
-        if (process == 1) {
-            // TODO: 这里删除当前这条信息
-        }
-        // 处理不当 缺少对正确信息的处理
-        violationLogService.insertViolationLog(new ViolationLog()
-                .setId(IdUtil.fastSimpleUUID())
+        ViolationLog violationLog = new ViolationLog();
+        violationLog.setId(IdUtil.fastSimpleUUID())
                 .setCreateTime(DateUtil.date())
-                .setProcess("识别信息有误")
-                .setReviewId(id)
-//              .setProcessId()
-                .setStatus(StatusEnum.NORMAL.getId()));
+//                .setReviewId()
+                .setViolationId(id)
+                .setStatus(StatusEnum.NORMAL.getId());
+        // 违规人员错误 这里删除当前这条信息
+        if (process == 2) {
+            // TODO: 这里删除当前这条信息
+            violationLog.setProcess("审核-信息识别错误");
+            // 执行处理违规
+            violationLogService.insertViolationLog(violationLog);
+            return new DataResult(CodeEnum.REQUEST_SUCCESS, "审核处理完成");
+        }
+        // 人员信息正确
+        violationLog.setProcess("审核-确认信息");
+        violationLogService.insertViolationLog(violationLog);
         // 执行处理违规
         violationService.processViolationsInfo(ProcessEnum.REVIEW.getId(), id);
         return new DataResult(CodeEnum.REQUEST_SUCCESS, "已审核");
@@ -175,20 +180,20 @@ public class ViolationController {
         if (StrUtil.isBlank(id)) {
             return new DataResult(CodeEnum.REQUEST_REFUSE, "请输入全必填参数~");
         }
-
         Integer processed = violationService.findViolationProcessStatus(id).getProcess();
         if (processed != 2) {
             return new DataResult(CodeEnum.REQUEST_ERROR, "未审核，请审核后再处理");
         }
         log.info("{ 处理违规信息 }");
-        violationLogService.insertViolationLog(new ViolationLog()
-                .setId(IdUtil.fastSimpleUUID())
+        ViolationLog violationLog = new ViolationLog();
+        violationLog.setId(IdUtil.fastSimpleUUID())
                 .setCreateTime(DateUtil.date())
                 .setProcess(process)
 //              .setProcessId()
                 .setReviewId(id)
-                .setStatus(StatusEnum.NORMAL.getId()));
-
+                .setStatus(StatusEnum.NORMAL.getId());
+        // 记录日志
+        violationLogService.insertViolationLog(violationLog);
         // 执行处理违规
         violationService.processViolationsInfo(ProcessEnum.PROCESSED.getId(), id);
         return new DataResult(CodeEnum.REQUEST_SUCCESS, "已处理");
@@ -207,30 +212,8 @@ public class ViolationController {
         log.info("{查询违规图片 图片id：{}}", id);
         // 查询出图片的路径
         String image = violationService.getViolationImg(id).getImage();
-        //图像数据为空
-        /*if (image != null) {
-            BASE64Decoder decoder = new BASE64Decoder();
-            try {
-                //Base64解码
-                byte[] b = decoder.decodeBuffer(baseImg(image));
-                for (int i = 0; i < b.length; ++i) {
-                    //调整异常数据
-                    if (b[i] < 0) {
-                        b[i] += 256;
-                    }
-                }
-                // 生成图片的路径
-                String imgFilePath = path + DateUtil.getFileDate() + "\\" + DateUtil.getJpgDate() + "jpeg";
-                log.info(imgFilePath);
-                // 输出 生成的文件 到指定的目录下
-                @Cleanup OutputStream out = new FileOutputStream(imgFilePath);
-                out.write(b);
-            } catch (Exception e) {
-                log.info(" { 图片保存失败 } ");
-            }
-        }*/
         // 查询相应的违规内容
-        log.info(" { 查询违规事项 违规代码 code：{} } ", code);
+        log.info("{ 查询违规事项 违规代码 code：{} } ", code);
         String context = eventService.getContextByCode(code).getContext();
         // 将数据封装到 map 中
         Map<String, String> img = new HashMap<>();
@@ -271,9 +254,7 @@ public class ViolationController {
                 byte[] b = decoder.decodeBuffer(image.substring(image.indexOf(",") + 1));
                 for (int i = 0; i < b.length; ++i) {
                     //调整异常数据
-                    if (b[i] < 0) {
-                        b[i] += 256;
-                    }
+                    if (b[i] < 0) b[i] += 256;
                 }
                 // 生成图片的路径
                 imgFilePath = path + FileUtil.getFileDate() + "\\" + FileUtil.getJpgDate() + ".jpeg";

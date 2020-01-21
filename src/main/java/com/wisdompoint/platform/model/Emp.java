@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -27,8 +28,10 @@ import java.util.Date;
 @Accessors(chain = true)
 @Table(name = "emp")
 @ApiModel(value = "Emp", description = "员工信息")
-public class Emp {
+public class Emp implements Serializable {
 
+    private static final long serialVersionUID = -2936213406450913999L;
+    
     /**
      * 员工的编号
      */

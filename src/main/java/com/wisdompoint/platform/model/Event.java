@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -27,7 +28,9 @@ import java.util.Date;
 @Accessors(chain = true)
 @Table(name = "event")
 @ApiModel(value = "Event", description = "违规事件")
-public class Event {
+public class Event implements Serializable {
+
+    private static final long serialVersionUID = 5360195426157074483L;
 
     /**
      * 违规事件id

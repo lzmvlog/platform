@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -26,7 +27,9 @@ import java.util.Date;
 @Accessors(chain = true)
 @Table(name = "ticket")
 @ApiModel(value = "WorkTicket", description = "工作票")
-public class WorkTicket {
+public class WorkTicket implements Serializable {
+
+    private static final long serialVersionUID = 1699525842495766903L;
 
     /**
      * 工作票的id
@@ -69,14 +72,14 @@ public class WorkTicket {
     private Date endTime;
 
     @Column(name = "create_member_id")
-    @ApiModelProperty(name = "createMemberId",value = "创建人信息(创建工作票信息)", dataType = "String")
+    @ApiModelProperty(name = "createMemberId", value = "创建人信息(创建工作票信息)", dataType = "String")
     private String createMemberId;
 
     /**
      * 工作员工信息
      */
     @Column(name = "member_id")
-    @ApiModelProperty(name = "memberId",value = "用户的id", dataType = "String")
+    @ApiModelProperty(name = "memberId", value = "用户的id", dataType = "String")
     private String memberId;
 
     /**

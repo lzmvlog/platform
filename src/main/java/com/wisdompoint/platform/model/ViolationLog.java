@@ -14,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -29,7 +30,9 @@ import java.util.Date;
 @Builder(toBuilder = true)
 @Accessors(chain = true)
 @ApiModel(value = "violation_log", description = "违规记录日志")
-public class ViolationLog {
+public class ViolationLog implements Serializable {
+
+    private static final long serialVersionUID = 9046834375790439401L;
 
     /**
      * 违规的 id 编号
